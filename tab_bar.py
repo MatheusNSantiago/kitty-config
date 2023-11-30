@@ -2,8 +2,6 @@
 # REF: https://github.com/nosvagor/dotfiles/blob/main/config/kitty/tab_bar.py
 
 from os import getlogin, uname
-from pathlib import Path
-from kitty.boss import get_boss
 from kitty.fast_data_types import Screen, get_options
 from kitty.utils import color_as_int
 from kitty.tab_bar import (
@@ -62,7 +60,7 @@ def _draw_icon(title: str, screen: Screen, index: int) -> int:
     screen.cursor.fg, screen.cursor.bg = FG, BG
 
     if title.startswith("v") or title.startswith("nvim"):
-        _draw(screen, "  ", fg = as_rgb(0xFF252539)) # #252539
+        _draw(screen, "  ", fg = as_rgb(0xFF252539)) # #252539 
     else:
         screen.draw(ICON)
 
@@ -71,47 +69,6 @@ def _draw_icon(title: str, screen: Screen, index: int) -> int:
     screen.cursor.fg, screen.cursor.bg = fg, bg
     screen.cursor.x = len(ICON + SEPARATOR_SYMBOL)
     return screen.cursor.x
-
-
-# def get_cwd():
-#     cwd = ""
-#     tab_manager = get_boss().active_tab_manager
-#     if tab_manager is not None:
-#         window = tab_manager.active_window
-#         if window is not None:
-#             cwd = window.cwd_of_child
-#
-#     cwd_parts = list(Path(cwd).parts)
-#     if len(cwd_parts) > 1:
-#         if cwd_parts[1] == "home":
-#             cwd_parts[0] = ICON_DIR
-#             cwd_parts[1:3] = []
-#         else:
-#             cwd_parts[0] = "  "  # root descended
-#     else:
-#         cwd_parts[0] = "  "  # root base
-#
-#     if len("/".join(cwd_parts)) < 15:
-#         cwd = cwd_parts[0] + "/".join(cwd_parts[1:])
-#     else:
-#         cwd = TRUNCATION_SYMBOL + cwd_parts[-1]
-#
-#     return cwd
-
-
-# def _draw_cwd(screen: Screen, index: int) -> int:
-#     if index != 1:
-#         return 0
-#     fg, bg = screen.cursor.fg, screen.cursor.bg
-#     screen.cursor.fg, screen.cursor.bg = BG, ACTIVE_BG
-#     cwd = get_cwd()
-#     screen.draw(cwd)
-#     screen.cursor.fg, screen.cursor.bg = ACTIVE_BG, BAR_BG
-#     screen.draw(SEPARATOR_SYMBOL)
-#     screen.draw("⽡")
-#     screen.cursor.fg, screen.cursor.bg = fg, bg
-#     screen.cursor.x = len(cwd) + 9
-#     return screen.cursor.x
 
 
 def _draw_left_status(
