@@ -37,7 +37,7 @@ SEPARATOR_SYMBOL_RIGHT = ""
 ICON, ICON_USER, ICON_DIR = ("  ", " ", "  ")
 TRUNCATION_SYMBOL = "  //"
 
-RIGHT_MARGIN = -8
+RIGHT_MARGIN = -4
 REFRESH_TIME = 1
 right_status_length = -1
 
@@ -60,6 +60,7 @@ def _draw_icon(title: str, screen: Screen, index: int) -> int:
     screen.cursor.fg, screen.cursor.bg = FG, BG
 
     if title.startswith("v") or title.startswith("nvim"):
+        # _draw(screen, " ", fg = as_rgb(0xFF252539)) # #252539 
         _draw(screen, "  ", fg = as_rgb(0xFF252539)) # #252539 
     else:
         screen.draw(ICON)
@@ -161,7 +162,8 @@ def draw_tab(
     cells.append((ACTIVE_BG, BAR_BG, SEPARATOR_SYMBOL_RIGHT))
     cells.append((BG, ACTIVE_BG, app))
     cells.append((FG, BG, host))
-    right_status_length = RIGHT_MARGIN + 2
+    # right_status_length = RIGHT_MARGIN + 2
+    right_status_length = RIGHT_MARGIN - 2
     for cell in cells:
         right_status_length += len(str(cell[1]))
 
